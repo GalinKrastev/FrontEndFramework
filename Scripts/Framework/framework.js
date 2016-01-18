@@ -11,7 +11,7 @@
             controller: (function (name, object) {
                 // encapsulated this way you cant extend default object
                 // maybe it is a good idea to make the deault objects extensible
-                function controller(name, object) {
+                function Controller(name, object) {
                     this.specifics = {
                         name: name
                     };

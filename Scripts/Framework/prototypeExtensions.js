@@ -25,7 +25,7 @@
 
 (!Object.prototype.extendWith && (Object.prototype.extendWith = function extend(object) {
     if (typeof object !== "object") {
-        throw new Error(["Type of object parameter is not an object."]);
+        throw new Error(["Type of object parameter is not of type Object."]);
     }
 
     for (var propName in object) {
@@ -96,6 +96,12 @@
 (!String.prototype.contains && (String.prototype.contains = function (text) {
     return this.indexOf(text) > -1;
 }));
+
+(!String.prototype.startsWith && (String.prototype.startsWith = function (text, position) {
+    position = position || 0;
+    return this.indexOf(searchString, position) === position;
+}));
+
 
 String.prototype.toDashSeparated = function () {
     var letter, newString = [];
