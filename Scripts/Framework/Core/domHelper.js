@@ -20,7 +20,7 @@ framework.core.domHelper = (function () {
             ) throw new Error(["template must be html parsable text or html fragment"]);
 
             var templateElement,
-                viewElement = document.querySelector("[view='" + view + "']");
+                viewElement = document.querySelector("[fm-view='" + view + "']");
 
             if (!viewElement)
                 throw new Error(["Specified view: " + view + " was not fount"]);

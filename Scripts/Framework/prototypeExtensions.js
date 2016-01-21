@@ -24,14 +24,14 @@
 }));
 
 (!Object.prototype.extendWith && (Object.prototype.extendWith = function extend(object) {
-    if (typeof object !== "object") {
-        throw new Error(["Type of object parameter is not of type Object."]);
+    if (!(typeof object === "object" || typeof object === "function")) {
+        throw new Error(["Type of object parameter is not of type Object or function (constructor)"]);
     }
 
     for (var propName in object) {
         if (
-            object.hasOwnProperty(propName) && 
-            object[propName] !== null && 
+            object.hasOwnProperty(propName) &&
+            object[propName] !== null &&
             object[propName] !== undefined
         ) {
             switch (object[propName].constructor) {
@@ -42,21 +42,25 @@
                     this[propName] = object[propName];
                     break;
 
+                case Date:
+                    this[propName] = new Date(object[propName]);
+                    break;
+
                 case Function:
                     this[propName] = object[propName];
                     break;
 
                 default: //object
                     this[propName] = this[propName] ?
-                        this[propName].extend(object[propName]) :
-                        {}.extend(object[propName]);
+                        this[propName].extendWith(object[propName]) :
+                        {}.extendWith(object[propName]);
                     break;
             }
         }
     }
 
     if (object.prototype) {
-        this.prototype.extend(object.prototype);
+        this.prototype.extendWith(object.prototype);
     }
 
     return this;
@@ -84,7 +88,7 @@
     var array = [];
 
     for (var p in this)
-        if(this.hasOwnProperty(p))
+        if (this.hasOwnProperty(p))
             array.push(this[p])
 
     return array;

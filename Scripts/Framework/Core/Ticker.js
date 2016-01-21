@@ -88,9 +88,9 @@ framework.core.Ticker = function (duration, checkInterval, listener, iteratedFun
 };
 
 var ticker =
-    new Ticker(
+    new framework.core.Ticker(
         Number.POSITIVE_INFINITY, // after what time it should stop
-        1000, // ticker interval 
+        1000, // tick interval 
         function () { console.log("ticker stopped"); }, // callback
         [ // array of iterated functions to be repeated on ticker interval
             function () { console.log("called iterated function 1") }
